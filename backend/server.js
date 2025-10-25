@@ -19,6 +19,7 @@ const scammerRoutes = require('./routes/scammer.routes.js')
 const videoRoutes = require('./routes/video.routes.js')
 const pointsRoutes = require('./routes/points.routes.js')
 const trendingRoutes = require('./routes/trending.routes.js')
+const geminiRoutes = require('./routes/gemini.routes.js')
 
 // Register routes
 
@@ -89,6 +90,7 @@ app.use('/api/scammers', scammerRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/points', pointsRoutes);
 app.use('/api/trending', trendingRoutes);
+app.use('/api/gemini', geminiRoutes);
 // Graceful Shutdown
 process.on('SIGINT', async () => {
     console.log("Shutting down server...");

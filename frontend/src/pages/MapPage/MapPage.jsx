@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ScamMap from '../../components/ScamMap/ScamMap';
-import { Map, AlertTriangle, MessageCircle, TrendingUp, Brain, Target, BarChart3 } from 'lucide-react';
+import GeminiInsights from '../../components/GeminiInsights/GeminiInsights';
+import { Map, AlertTriangle, MessageCircle, TrendingUp, Brain, Target, BarChart3, Zap } from 'lucide-react';
 import { axiosInstance } from '../../stores/axios';
 import { toast } from 'react-hot-toast';
 
@@ -17,7 +18,8 @@ const MapPage = () => {
     { id: 'community', label: 'Community Posts', icon: MessageCircle },
     { id: 'trending', label: 'Trending Patterns', icon: TrendingUp },
     { id: 'hotspots', label: 'Hotspots', icon: Target },
-    { id: 'insights', label: 'ML Insights', icon: Brain }
+    { id: 'insights', label: 'ML Insights', icon: Brain },
+    { id: 'Insights', label: 'ML Insights', icon: Zap }
   ];
 
   useEffect(() => {
@@ -111,6 +113,8 @@ const MapPage = () => {
               <TrendingPatternsPanel patterns={trendingPatterns} loading={loading} />
             ) : activeTab === 'hotspots' ? (
               <HotspotsPanel hotspots={hotspots} loading={loading} />
+            ) : activeTab === 'Insights' ? (
+              <GeminiInsights />
             ) : (
               <ScamMap mapType={activeTab} />
             )}

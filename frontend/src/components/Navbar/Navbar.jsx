@@ -43,10 +43,10 @@ const Navbar = () => {
             <Link to="/admin-dashboard" className="text-base font-medium text-gray-700 hover:text-primary">
               Home
             </Link>
-            {/* <Link to="/admin-dashboard" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
+            <Link to="/admin-dashboard" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <Shield className="w-4 h-4 mr-1" />
               Admin Dashboard
-            </Link> */}
+            </Link>
             <Link to="/view-registrations" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <Users className="w-4 h-4 mr-1" />
               Manage Users
@@ -116,10 +116,10 @@ const Navbar = () => {
             <Link to="/user-dashboard" className="text-base font-medium text-gray-700 hover:text-primary">
               Home
             </Link>
-            {/* <Link to="/user-dashboard" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
+            <Link to="/user-dashboard" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <Shield className="w-4 h-4 mr-1" />
               User Dashboard
-            </Link> */}
+            </Link>
             <Link to="/report" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <AlertTriangle className="w-4 h-4 mr-1" />
               Report Incident
@@ -160,7 +160,7 @@ const Navbar = () => {
         return (
           <>
             <li><Link to="/admin-dashboard">Home</Link></li>
-            {/* <li>
+            <li>
               <Link to="/admin-dashboard" className="flex items-center">
                 <Shield className="w-4 h-4 mr-2" />
                 Admin Dashboard
@@ -171,7 +171,7 @@ const Navbar = () => {
                 <Users className="w-4 h-4 mr-2" />
                 Manage Users
               </Link>
-            </li> */}
+            </li>
             <li><Link to="/incidents">All Incidents</Link></li>
             <li>
               <Link to="/community" className="flex items-center">

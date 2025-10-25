@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_BASE_URL = 'http://192.168.1.6:5000';
+const API_BASE_URL = 'http://192.168.1.4:5000';
 
 // Helper function to make authenticated API calls
 const makeAuthenticatedRequest = async (endpoint, options = {}) => {
