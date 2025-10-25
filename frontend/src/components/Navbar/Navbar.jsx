@@ -7,9 +7,9 @@ import AvatarImg from './avatar.jpeg'
 const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const {authUser, logout, authRole} = useAuthStore();
+  const { authUser, logout, authRole } = useAuthStore();
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     await logout();
   }
 
@@ -20,7 +20,7 @@ const Navbar = () => {
   const getRoleBasedNavItems = () => {
     console.log('Navbar - getRoleBasedNavItems - authUser:', authUser);
     console.log('Navbar - getRoleBasedNavItems - authRole:', authRole);
-    
+
     if (!authUser) {
       console.log('Navbar - No authUser, showing public nav items');
       return (
@@ -43,10 +43,10 @@ const Navbar = () => {
             <Link to="/admin-dashboard" className="text-base font-medium text-gray-700 hover:text-primary">
               Home
             </Link>
-            <Link to="/admin-dashboard" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
+            {/* <Link to="/admin-dashboard" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <Shield className="w-4 h-4 mr-1" />
               Admin Dashboard
-            </Link>
+            </Link> */}
             <Link to="/view-registrations" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <Users className="w-4 h-4 mr-1" />
               Manage Users
@@ -62,21 +62,21 @@ const Navbar = () => {
               <Map className="w-4 h-4 mr-1" />
               Scam Map
             </Link>
-            <Link to="/helpline" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
-              <Phone className="w-4 h-4 mr-1" />
-              Helpline
-            </Link>
             <Link to="/scammer-database" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <Database className="w-4 h-4 mr-1" />
               Scammer DB
             </Link>
-            <Link to="/video" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
+            <Link to="/educational" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <Video className="w-4 h-4 mr-1" />
-              Video Gallery
+              Educational
+            </Link>
+            <Link to="/scam-detector" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
+              <Video className="w-4 h-4 mr-1" />
+              Ai Detector
             </Link>
           </>
         );
-      
+
       case 'authority':
         return (
           <>
@@ -98,21 +98,17 @@ const Navbar = () => {
               <Map className="w-4 h-4 mr-1" />
               Scam Map
             </Link>
-            <Link to="/helpline" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
-              <Phone className="w-4 h-4 mr-1" />
-              Helpline
-            </Link>
             <Link to="/scammer-database" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <Database className="w-4 h-4 mr-1" />
               Scammer DB
             </Link>
-            <Link to="/video" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
+            <Link to="/educational" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <Video className="w-4 h-4 mr-1" />
-              Video Gallery
+              Educational
             </Link>
           </>
         );
-      
+
       case 'user':
       default:
         return (
@@ -120,10 +116,10 @@ const Navbar = () => {
             <Link to="/user-dashboard" className="text-base font-medium text-gray-700 hover:text-primary">
               Home
             </Link>
-            <Link to="/user-dashboard" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
+            {/* <Link to="/user-dashboard" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <Shield className="w-4 h-4 mr-1" />
               User Dashboard
-            </Link>
+            </Link> */}
             <Link to="/report" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <AlertTriangle className="w-4 h-4 mr-1" />
               Report Incident
@@ -136,17 +132,13 @@ const Navbar = () => {
               <Map className="w-4 h-4 mr-1" />
               Scam Map
             </Link>
-            <Link to="/helpline" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
-              <Phone className="w-4 h-4 mr-1" />
-              Helpline
-            </Link>
             <Link to="/scammer-database" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <Database className="w-4 h-4 mr-1" />
               Scammer DB
             </Link>
-            <Link to="/video" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
+            <Link to="/educational" className="text-base font-medium text-gray-700 hover:text-primary flex items-center">
               <Video className="w-4 h-4 mr-1" />
-              Video Gallery
+              Educational
             </Link>
           </>
         );
@@ -168,7 +160,7 @@ const Navbar = () => {
         return (
           <>
             <li><Link to="/admin-dashboard">Home</Link></li>
-            <li>
+            {/* <li>
               <Link to="/admin-dashboard" className="flex items-center">
                 <Shield className="w-4 h-4 mr-2" />
                 Admin Dashboard
@@ -179,7 +171,7 @@ const Navbar = () => {
                 <Users className="w-4 h-4 mr-2" />
                 Manage Users
               </Link>
-            </li>
+            </li> */}
             <li><Link to="/incidents">All Incidents</Link></li>
             <li>
               <Link to="/community" className="flex items-center">
@@ -213,7 +205,7 @@ const Navbar = () => {
             </li>
           </>
         );
-      
+
       case 'authority':
         return (
           <>
@@ -257,7 +249,7 @@ const Navbar = () => {
             </li>
           </>
         );
-      
+
       case 'user':
       default:
         return (
@@ -309,13 +301,13 @@ const Navbar = () => {
     <nav className="navbar bg-base-100 shadow-md px-4">
       {/* Logo Section */}
       <div className="flex-1">
-        <Link 
-          to={authUser ? 
+        <Link
+          to={authUser ?
             authRole === 'admin' ? '/admin-dashboard' :
-            authRole === 'authority' ? '/authority-dashboard' :
-            authRole === 'user' ? '/user-dashboard' :
-            '/'
-          : '/'} 
+              authRole === 'authority' ? '/authority-dashboard' :
+                authRole === 'user' ? '/user-dashboard' :
+                  '/'
+            : '/'}
           className="text-2xl font-semibold flex items-center space-x-2"
         >
           <Menu className="w-6 h-6" />

@@ -1,0 +1,11 @@
+# Advanced ML Pipeline Dependencies
+pandas>=1.5.0
+numpy>=1.21.0
+transformers>=4.21.0
+sentence-transformers>=2.2.0
+bertopic>=0.15.0
+python-dateutil>=2.8.0
+scikit-learn>=1.1.0
+torch>=1.12.0
+tokenizers>=0.13.0
+huggingface-hub>=0.10.0
