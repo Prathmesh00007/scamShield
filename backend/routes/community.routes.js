@@ -9,7 +9,8 @@ const {
     reportPost,
     getUserPosts,
     deletePost,
-    getCommunityStats
+    getCommunityStats,
+    getLeaderboard
 } = require('../controllers/community.controller.js');
 const authMiddleware = require('../middleware/auth.middleware.js');
 
@@ -23,6 +24,9 @@ router.get('/posts/stats', getCommunityStats);
 router.get('/posts/user', getUserPosts);
 router.get('/posts/:id', getPostById);
 router.delete('/posts/:id', deletePost);
+
+// Leaderboard routes
+router.get('/leaderboard', getLeaderboard);
 
 // Comments routes
 router.post('/posts/:id/comments', addComment);

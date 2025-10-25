@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
         unique: true,
     },
     mobile: {
-        type: String, 
+        type: String,
         required: true,
         unique: true,
     },
@@ -41,10 +41,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    
+
     role: {
         type: String,
-        enum: ['admin', 'authority', 'user'], 
+        enum: ['admin', 'authority', 'user'],
         default: "user",
     },
     profilePic: {
@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema({
     reportedEvents: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Report', 
+            ref: 'Report',
         },
     ],
     notifications: [
@@ -63,12 +63,65 @@ const userSchema = new mongoose.Schema({
             text: {
                 type: String,
             },
-            incidentId : {
-                type : mongoose.Schema.Types.ObjectId,
-                ref : 'Incident',
+            incidentId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Incident',
             }
         },
-    ],    
+    ],
+    // Leaderboard and reputation tracking
+    reputation: {
+        type: Number,
+        default: 0,
+    },
+    contributions: {
+        reports: {
+            type: Number,
+            default: 0,
+        },
+        posts: {
+            type: Number,
+            default: 0,
+        },
+        comments: {
+            type: Number,
+            default: 0,
+        },
+        badges: {
+            type: Number,
+            default: 0,
+        },
+    },
+    streak: {
+        current: {
+            type: Number,
+            default: 0,
+        },
+        lastActivity: {
+            type: Date,
+            default: Date.now,
+        },
+    },
+    badges: [
+        {
+            name: {
+                type: String,
+                required: true,
+            },
+            description: {
+                type: String,
+                required: true,
+            },
+            earnedAt: {
+                type: Date,
+                default: Date.now,
+            },
+            icon: {
+                type: String,
+                default: '🏆',
+            },
+        },
+    ],
 });
 
 module.exports = mongoose.model('User', userSchema);

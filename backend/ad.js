@@ -10,7 +10,7 @@ const User = require('./models/user.model.js');
 async function createAdmin() {
     try {
         // Connect to MongoDB
-        await mongoose.connect("mongodb://localhost:27017/scam");
+        await mongoose.connect("mongodb://localhost:27017/scamShield");
         console.log('✅ Connected to MongoDB');
 
         const adminEmail = 'paranade370123@kkwagh.edu.in';

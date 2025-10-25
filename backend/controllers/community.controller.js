@@ -1,12 +1,13 @@
 const CommunityPost = require('../models/communityPost.model.js');
 const User = require('../models/user.model.js');
 const locationService = require('../services/locationService.js');
+const { updateUserReputation } = require('../config/utils.js');
 
 // Create a new community post
 const createPost = async (req, res) => {
     try {
         const { title, content, scamType, region, isAnonymous, tags, pincode } = req.body;
-        
+
         const authorId = req.user ? req.user.id : "68efa7b98d954a91f55c71ab";
 
         // Validate required fields
@@ -35,6 +36,9 @@ const createPost = async (req, res) => {
         await post.save();
         await post.populate('author', 'name email');
 
+        // Update user reputation for creating a post
+        await updateUserReputation(authorId, 10, 'post');
+
         res.status(201).json({
             success: true,
             message: 'Post created successfully',
@@ -56,9 +60,9 @@ const getAllPosts = async (req, res) => {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
         const skip = (page - 1) * limit;
-        
+
         const { scamType, region, sortBy = 'createdAt', sortOrder = 'desc' } = req.query;
-        
+
         // Build filter object
         const filter = { status: 'active' };
         if (scamType) filter.scamType = scamType;
@@ -170,6 +174,9 @@ const addComment = async (req, res) => {
         await post.save();
         await post.populate('comments.author', 'name email');
 
+        // Update user reputation for adding a comment
+        await updateUserReputation(author, 5, 'comment');
+
         res.json({
             success: true,
             message: 'Comment added successfully',
@@ -210,7 +217,7 @@ const votePost = async (req, res) => {
 
         // Check if user already voted
         const existingVote = post.votes.voters.find(voter => voter.user.toString() === userId);
-        
+
         if (existingVote) {
             // If same vote type, remove vote
             if (existingVote.voteType === voteType) {
@@ -435,6 +442,50 @@ const getCommunityStats = async (req, res) => {
     }
 };
 
+// Get leaderboard data
+const getLeaderboard = async (req, res) => {
+    try {
+        const limit = parseInt(req.query.limit) || 10;
+
+        // Get top contributors by reputation
+        const leaderboard = await User.find({ role: 'user' })
+            .select('name reputation contributions streak badges')
+            .sort({ reputation: -1 })
+            .limit(limit);
+
+        // Format the leaderboard data
+        const formattedLeaderboard = leaderboard.map((user, index) => ({
+            rank: index + 1,
+            name: user.name,
+            reputation: user.reputation,
+            streak: user.streak.current,
+            contributions: {
+                reports: user.contributions.reports,
+                posts: user.contributions.posts,
+                comments: user.contributions.comments,
+                badges: user.contributions.badges,
+            },
+            badges: user.badges,
+            totalContributions: user.contributions.reports + user.contributions.posts + user.contributions.comments,
+        }));
+
+        res.json({
+            success: true,
+            data: {
+                leaderboard: formattedLeaderboard,
+                totalUsers: await User.countDocuments({ role: 'user' })
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching leaderboard:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch leaderboard data',
+            error: error.message
+        });
+    }
+};
+
 module.exports = {
     createPost,
     getAllPosts,
@@ -444,5 +495,6 @@ module.exports = {
     reportPost,
     getUserPosts,
     deletePost,
-    getCommunityStats
+    getCommunityStats,
+    getLeaderboard
 };
